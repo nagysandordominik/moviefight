@@ -6,17 +6,16 @@ const fetchData = async (searchTerm) => {
             s: searchTerm
         }
     });
-    console.log(response.data)
+    return response.data.Search;
 
 };
 
 // Searching in API with input value
 const input = document.querySelector('input');
 
-
-
 // Fetching input value
-const onInput = event => {
-    fetchData(event.target.value);
+const onInput = async event => {
+    const movies = await fetchData(event.target.value);
+    console.log(movies);
 };
 input.addEventListener('input', debounce(onInput, 500));
