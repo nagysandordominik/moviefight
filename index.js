@@ -13,14 +13,21 @@ const fetchData = async (searchTerm) => {
 // Searching in API with input value
 const input = document.querySelector('input');
 
-let timeoutId;
-const onInput = event => {
-    if (timeoutId) {
-        clearTimeout(timeoutId);
-    }
-    timeoutId = setTimeout(() => {
-        fetchData(event.target.value);
-    }, 3000)
+// Timeout with debounce
+const debounce = (func, delay = 1000) => {
+    let timeoutId;
+    return (...args) => {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(() => {
+            func.apply(null, args);
+        }, delay);
+    };
 };
 
-input.addEventListener('input', onInput);
+// Fetching input value
+const onInput = event => {
+    fetchData(event.target.value);
+};
+input.addEventListener('input', debounce(onInput, 500));
