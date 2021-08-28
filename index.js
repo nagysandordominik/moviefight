@@ -70,6 +70,12 @@ document.addEventListener('click', event => {
     }
 });
 
-const onMovieSelect = movie => {
-    console.log(movie)
+const onMovieSelect = async movie => {
+    const response = await axios.get('http://www.omdbapi.com/', {
+        params: {
+            apikey: 'c2523724',
+            i: movie.imdbID
+        }
+    });
+    console.log(response.data)
 };
