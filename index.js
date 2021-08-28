@@ -1,3 +1,4 @@
+// Fetching to OMDbAPI
 const fetchData = async (searchTerm) => {
     const response = await axios.get('http://www.omdbapi.com/', {
         params: {
@@ -6,9 +7,20 @@ const fetchData = async (searchTerm) => {
         }
     });
     console.log(response.data)
+
 };
 
+// Searching in API with input value
 const input = document.querySelector('input');
-input.addEventListener('input', (event) => {
-    fetchData(event.target.value);
-});
+
+let timeoutId;
+const onInput = event => {
+    if (timeoutId) {
+        clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+        fetchData(event.target.value);
+    }, 3000)
+};
+
+input.addEventListener('input', onInput);
