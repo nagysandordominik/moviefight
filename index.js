@@ -25,20 +25,26 @@ root.innerHTML = `
 
 `;
 
-// Searching in API with input value
+// Searching in API with input value and showing the results 
 const input = document.querySelector('input');
 const dropdown = document.querySelector('.dropdown');
 const resultsWrapper = document.querySelector('.results');
+
 // Fetching input value
 const onInput = async event => {
     const movies = await fetchData(event.target.value);
+
+    dropdown.classList.add('is-active');
     for (let movie of movies) {
-        const div = document.createElement('div');
-        div.innerHTML = `
+        const option = document.createElement('a');
+
+        option.classList.add('dropdown-item')
+        option.innerHTML = `
             <img src="${movie.Poster}" />
-            <h1>${movie.Title}</h1>
+            ${movie.Title}
         `;
-        document.querySelector('#target').appendChild(div);
+
+        resultsWrapper.appendChild(option);
     }
 };
 input.addEventListener('input', debounce(onInput, 500));
