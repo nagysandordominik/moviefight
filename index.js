@@ -39,7 +39,7 @@ const onInput = async event => {
         dropdown.classList.remove('is-active');
         return;
     }
-
+    // Handling broken images about the movies 
     resultsWrapper.innerHTML = '';
     dropdown.classList.add('is-active');
     for (let movie of movies) {
@@ -69,7 +69,7 @@ document.addEventListener('click', event => {
         dropdown.classList.remove('is-active')
     }
 });
-
+// Selects the specific movie from the list 
 const onMovieSelect = async movie => {
     const response = await axios.get('http://www.omdbapi.com/', {
         params: {
@@ -79,7 +79,7 @@ const onMovieSelect = async movie => {
     });
     document.querySelector('#summary').innerHTML = movieTemplate(response.data);
 };
-
+// Creates a movie card from the selected movie 
 const movieTemplate = movieDetail => {
     return `
     <article class="media">
@@ -95,6 +95,26 @@ const movieTemplate = movieDetail => {
                 <p>${movieDetail.Plot}</p>
             </div>
         </div>
+    </article>
+    <article class="notification is-primary">
+    <p class="title">${movieDetail.Awards}</p>
+    <p class="subtitle">Awards</p>
+    </article>
+    <article class="notification is-primary">
+    <p class="title">${movieDetail.BoxOffice}</p>
+    <p class="subtitle">Box Office</p>
+    </article>
+    <article class="notification is-primary">
+    <p class="title">${movieDetail.Metascore}</p>
+    <p class="subtitle">Metascore rating</p>
+    </article>
+    <article class="notification is-primary">
+    <p class="title">${movieDetail.imdbRating}</p>
+    <p class="subtitle">IMDb rating</p>
+    </article>
+    <article class="notification is-primary">
+    <p class="title">${movieDetail.imdbVotes}</p>
+    <p class="subtitle">IMDb votes</p>
     </article>
     `;
 };
