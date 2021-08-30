@@ -1,6 +1,5 @@
-const createAutoComplete = (config) => {
+const createAutoComplete = ({ root }) => {
     // Search result display with image and its title 
-    const root = document.querySelector('.autocomplete');
     root.innerHTML = `
 <label><b>Search for a movie</b></label>
 <input class="input" />
@@ -13,9 +12,9 @@ const createAutoComplete = (config) => {
 `;
 
     // Searching in API with input value and showing the results 
-    const input = document.querySelector('input');
-    const dropdown = document.querySelector('.dropdown');
-    const resultsWrapper = document.querySelector('.results');
+    const input = root.querySelector('input');
+    const dropdown = root.querySelector('.dropdown');
+    const resultsWrapper = root.querySelector('.results');
 
     // Fetching input value
     const onInput = async event => {
