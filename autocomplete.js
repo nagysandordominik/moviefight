@@ -1,4 +1,6 @@
-const createAutoComplete = ({ root, renderOption, onOptionSelect, inputValue }) => {
+const createAutoComplete = ({
+    root, renderOption, onOptionSelect, inputValue, fetchData
+}) => {
     // Search result display with image and its title 
     root.innerHTML = `
 <label><b>Search for a movie</b></label>
