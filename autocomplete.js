@@ -1,4 +1,4 @@
-const createAutoComplete = ({ root, renderOption }) => {
+const createAutoComplete = ({ root, renderOption, onOptionSelect, inputValue }) => {
     // Search result display with image and its title 
     root.innerHTML = `
 <label><b>Search for a movie</b></label>
@@ -36,8 +36,8 @@ const createAutoComplete = ({ root, renderOption }) => {
             option.innerHTML = renderOption(movie);
             option.addEventListener('click', () => {
                 dropdown.classList.remove('is-active');
-                input.value = movie.Title;
-                onMovieSelect(movie);
+                input.value = inputValue(movie);
+                onOptionSelect(movie);
             });
 
             resultsWrapper.appendChild(option);
