@@ -1,5 +1,4 @@
-createAutoComplete({
-    root: document.querySelector('.autocomplete'),
+const autocompleteConfig = {
     renderOption(item) {
         const imgSrc = item.Poster === 'N/A' ? '' : item.Poster;
         return `
@@ -27,8 +26,19 @@ createAutoComplete({
 
         return response.data.Search;
     }
+};
+
+createAutoComplete({
+    ...autocompleteConfig,
+    root: document.querySelector('#left-autocomplete'),
+
 });
 
+createAutoComplete({
+    ...autocompleteConfig,
+    root: document.querySelector('#right-autocomplete'),
+
+});
 
 // Selects the specific item from the list 
 const onitemSelect = async item => {
@@ -40,7 +50,7 @@ const onitemSelect = async item => {
     });
     document.querySelector('#summary').innerHTML = itemTemplate(response.data);
 };
-// Creates a item card from the selected item 
+// Creates an item card from the selected item 
 const itemTemplate = itemDetail => {
     return `
     <article class="media">
