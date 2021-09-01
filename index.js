@@ -75,20 +75,20 @@ const runComparison = () => {
     leftSideStats.forEach((leftStat, index) => {
         const rightStat = rightSideStats[index];
 
-        const leftSideValue = leftStat.dataset.value;
-        const rightSideValue = rightStat.dataset.value;
+        const leftSideValue = parseInt(leftStat.dataset.value);
+        const rightSideValue = parseInt(rightStat.dataset.value);
 
         if (rightSideValue > leftSideValue) {
             leftStat.classList.remove('is-primary');
-            leftStat.classList.add('is-warning');
+            leftStat.classList.add('is-danger');
         } else {
             rightStat.classList.remove('is-primary');
-            rightStat.classList.add('is-warning');
+            rightStat.classList.add('is-danger');
         }
     });
 };
 
-// Creates an item card from the selected item 
+// Comparison conditions declare
 const itemTemplate = itemDetail => {
     const dollars = parseInt(itemDetail.BoxOffice.replace(/\$/g, '').replace(/,/g, '')
     );
@@ -104,7 +104,7 @@ const itemTemplate = itemDetail => {
             return prev + value;
         }
     }, 0);
-
+    // Creates an item card from the selected item 
     return `
     <article class="media">
         <figure class="media-left">
