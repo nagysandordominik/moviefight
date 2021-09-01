@@ -80,8 +80,7 @@ const itemTemplate = itemDetail => {
     const imdbRating = parseFloat(itemDetail.imdbRating);
     const imdbVotes = parseInt(itemDetail.imdbVotes.replace(/,/g, ''));
 
-    let count = 0;
-    const awardWins = itemDetail.Awards.split(' ').forEach((prev, word) => {
+    const awardWins = itemDetail.Awards.split(' ').reduce((prev, word) => {
         const value = parseInt(word);
         if (isNaN(value)) {
             return prev;
@@ -89,6 +88,7 @@ const itemTemplate = itemDetail => {
             return prev + value;
         }
     }, 0);
+
     return `
     <article class="media">
         <figure class="media-left">
@@ -104,23 +104,23 @@ const itemTemplate = itemDetail => {
             </div>
         </div>
     </article>
-    <article class="notification is-primary">
+    <article data-value=${awardWins} class="notification is-primary">
     <p class="title">${itemDetail.Awards}</p>
     <p class="subtitle">Awards</p>
     </article>
-    <article class="notification is-primary">
+    <article data-value=${dollars} class="notification is-primary">
     <p class="title">${itemDetail.BoxOffice}</p>
     <p class="subtitle">Box Office</p>
     </article>
-    <article class="notification is-primary">
+    <article data-value=${metaScore} class="notification is-primary">
     <p class="title">${itemDetail.Metascore}</p>
     <p class="subtitle">Metascore rating</p>
     </article>
-    <article class="notification is-primary">
+    <article data-value=${imdbRating} class="notification is-primary">
     <p class="title">${itemDetail.imdbRating}</p>
     <p class="subtitle">IMDb rating</p>
     </article>
-    <article class="notification is-primary">
+    <article data-value=${imdbVotes} class="notification is-primary">
     <p class="title">${itemDetail.imdbVotes}</p>
     <p class="subtitle">IMDb votes</p>
     </article>
