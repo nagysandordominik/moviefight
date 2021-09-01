@@ -50,7 +50,7 @@ let leftItem;
 let rightItem;
 // Selects the specific item from the list
 const onItemSelect = async (item, summaryElement, side) => {
-    const response = await axios.get('http://www.omdbapi.com/', {
+    const response = await axios.get('https://www.omdbapi.com/', {
         params: {
             apikey: 'c2523724',
             i: item.imdbID
