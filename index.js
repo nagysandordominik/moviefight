@@ -6,13 +6,11 @@ const autocompleteConfig = {
             ${item.Title} (${item.Year})
         `;
     },
-    onOptionSelect(item) {
-        document.querySelector('.tutorial').classList.add('is-hidden');
-        onitemSelect(item);
-    },
+
     inputValue(item) {
         return item.Title;
     },
+
     async fetchData(searchTerm) {
         const response = await axios.get('http://www.omdbapi.com/', {
             params: {
@@ -32,24 +30,30 @@ const autocompleteConfig = {
 createAutoComplete({
     ...autocompleteConfig,
     root: document.querySelector('#left-autocomplete'),
-
+    onOptionSelect(item) {
+        document.querySelector('.tutorial').classList.add('is-hidden');
+        onItemSelect(item, document.querySelector('#left-summary'));
+    }
 });
 
 createAutoComplete({
     ...autocompleteConfig,
     root: document.querySelector('#right-autocomplete'),
-
+    onOptionSelect(item) {
+        document.querySelector('.tutorial').classList.add('is-hidden');
+        onItemSelect(item, document.querySelector('#right-summary'));
+    }
 });
 
 // Selects the specific item from the list 
-const onitemSelect = async item => {
+const onItemSelect = async (item, summaryElement) => {
     const response = await axios.get('http://www.omdbapi.com/', {
         params: {
             apikey: 'c2523724',
             i: item.imdbID
         }
     });
-    document.querySelector('#summary').innerHTML = itemTemplate(response.data);
+    summaryElement.innerHTML = itemTemplate(response.data);
 };
 // Creates an item card from the selected item 
 const itemTemplate = itemDetail => {
