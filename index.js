@@ -32,7 +32,7 @@ createAutoComplete({
     root: document.querySelector('#left-autocomplete'),
     onOptionSelect(item) {
         document.querySelector('.tutorial').classList.add('is-hidden');
-        onItemSelect(item, document.querySelector('#left-summary'));
+        onItemSelect(item, document.querySelector('#left-summary'), 'left');
     }
 });
 
@@ -41,12 +41,15 @@ createAutoComplete({
     root: document.querySelector('#right-autocomplete'),
     onOptionSelect(item) {
         document.querySelector('.tutorial').classList.add('is-hidden');
-        onItemSelect(item, document.querySelector('#right-summary'));
+        onItemSelect(item, document.querySelector('#right-summary'), 'right');
     }
 });
 
-// Selects the specific item from the list 
-const onItemSelect = async (item, summaryElement) => {
+
+let leftItem;
+let rightItem;
+// Selects the specific item from the list
+const onItemSelect = async (item, summaryElement, side) => {
     const response = await axios.get('http://www.omdbapi.com/', {
         params: {
             apikey: 'c2523724',
@@ -54,7 +57,21 @@ const onItemSelect = async (item, summaryElement) => {
         }
     });
     summaryElement.innerHTML = itemTemplate(response.data);
+    if (side === 'left') {
+        leftItem = response.data;
+    } else {
+        rightItem = response.data;
+    }
+    if (leftItem && rightItem) {
+        runComparison();
+
+    }
 };
+// Comparison between movies
+const runComparison = () => {
+    console.log('Comparison time!')
+};
+
 // Creates an item card from the selected item 
 const itemTemplate = itemDetail => {
     return `
