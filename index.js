@@ -7,6 +7,7 @@ const autocompleteConfig = {
         `;
     },
     onOptionSelect(item) {
+        document.querySelector('.tutorial').classList.add('is-hidden');
         onitemSelect(item);
     },
     inputValue(item) {
