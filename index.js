@@ -74,6 +74,21 @@ const runComparison = () => {
 
 // Creates an item card from the selected item 
 const itemTemplate = itemDetail => {
+    const dollars = parseInt(itemDetail.BoxOffice.replace(/\$/g, '').replace(/,/g, '')
+    );
+    const metaScore = parseInt(itemDetail.Metascore);
+    const imdbRating = parseFloat(itemDetail.imdbRating);
+    const imdbVotes = parseInt(itemDetail.imdbVotes.replace(/,/g, ''));
+
+    let count = 0;
+    const awardWins = itemDetail.Awards.split(' ').forEach((prev, word) => {
+        const value = parseInt(word);
+        if (isNaN(value)) {
+            return prev;
+        } else {
+            return prev + value;
+        }
+    }, 0);
     return `
     <article class="media">
         <figure class="media-left">
